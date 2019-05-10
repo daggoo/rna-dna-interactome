@@ -57,8 +57,6 @@ class MinorSymLogLocator(Locator):
                                   '%s type.' % type(self))
 
 
-
-
 #os.system("ipcluster stop --profile=natalia &")
 #os.system("ipcluster start --profile=natalia -n 4 &")
 #os.system("ipcluster start --profile=natalia -n 2 &")
@@ -164,8 +162,7 @@ def load_coordinates(fl_in, df, mode, df_by_bin):
                         last_exons[id] = tul2
                     else:
                         if start>=last_exons[id][0]:
-                            last_exons[id] = tul2
-                           
+                            last_exons[id] = tul2                         
                 
                 
                 if chr not in df_tmp:
@@ -178,8 +175,7 @@ def load_coordinates(fl_in, df, mode, df_by_bin):
                 df_tmp[chr].append(tul)
                 df_by_bin[chr][bn].append(tul)
                 
-                
-                 
+                                 
     for chr in sorted(df_tmp.keys()):
         df[chr] = np.array(df_tmp[chr])
         print chr ,
@@ -187,8 +183,7 @@ def load_coordinates(fl_in, df, mode, df_by_bin):
         print "| " ,
     
     print "\ncount_strange = " ,
-    print count_strange
-                    
+    print count_strange                    
 #
 #
 def load_gene_data (fl_in, df):
@@ -296,9 +291,7 @@ def split_mrnas_by_chr_of_rna_part(fl_in, fl_out_prefix):
                 ln = l.rstrip().split("\t")    
                 chrm_files[ln[0]].write(l)
     for chr in chrms_flat:
-        chrm_files[chr].close()    
-
-   
+        chrm_files[chr].close()      
 #
 #
 def split_dna_contacts_by_chr_of_first_dna_part(fl_in, fl_out_prefix):
@@ -319,9 +312,6 @@ def split_dna_contacts_by_chr_of_first_dna_part(fl_in, fl_out_prefix):
     print add_chrms
     for chr in chrms_flat:
         chrm_files[chr].close() 
-        
-
-
 #
 #
 #def core_parse_chrms_data_vs_annotated_coordinates(lines, fl_out, mode, df_starts, df_ends, df_strands):    
@@ -340,8 +330,7 @@ def core_parse_chrms_data_vs_annotated_coordinates( lines, mode, df_starts, df_e
             if numpy.any((df_starts[bn] <= coord1) & (df_ends[bn] >= coord1) & (df_strands[bn] == rna_strand)):
                 result.append(line) 
             else:
-                result.append("\n") 
-                
+                result.append("\n")                 
             
     elif mode=='DNA':   
         for line in lines:
@@ -359,10 +348,7 @@ def core_parse_chrms_data_vs_annotated_coordinates( lines, mode, df_starts, df_e
         return "Warning: core_parse_chrms_data_vs_annotated_coordinates unknown mode\n"   
     
     return result
-    
-
-
-                        
+                            
 #
 #
 def parse_chrms_data_vs_annotated_coordinates(path, df, df_name, mode, number_of_cpu):
@@ -400,10 +386,8 @@ def parse_chrms_data_vs_annotated_coordinates(path, df, df_name, mode, number_of
                 df_starts = np.array(df[chr][:][:,0],  dtype='int')
                 df_ends = np.array(df[chr][:][:,1], dtype='int')
                 #df_strands=np.array(df[chr][:,2], dtype='str')     
-                df_strands = []
-                
-    
-                
+                df_strands = []    
+             
                 with dview.sync_imports():
                     import numpy
                 t = time.time()    
@@ -489,13 +473,7 @@ def parse_chrms_data_vs_annotated_coordinates(path, df, df_name, mode, number_of
                 print 'Number of lines appr',
                 print line_counter
             gc.collect()             
-            
         
-#
-#
-             
-
-                
                 
 #
 #
@@ -562,7 +540,6 @@ def core_annotate_DNA_contacts_left_part(lines, genes_by_bin):
                 result.append(line.rstrip() + "\t" + tmp[4] + "\n")   
         
     return result
-
 #
 #
 def annotate_DNA_contacts_left_part (path, df_name, number_of_cpu):
@@ -632,8 +609,7 @@ def annotate_DNA_contacts_left_part (path, df_name, number_of_cpu):
                             break
                         out_file.write(line)      
                 
-    client.close()
-                        
+    client.close()                        
 #
 #
 def core_parse_gene_data_vs_annotated_coordinates(lines, genes_length, mode, flank):      
@@ -647,8 +623,7 @@ def core_parse_gene_data_vs_annotated_coordinates(lines, genes_length, mode, fla
                 continue        
             ln=line.rstrip().split("\t")
             if ln[1] != ln[3] :
-                continue
- 
+                continue 
                 
             #df_starts=numpy.array(genes[ln[1]][:,0],  dtype='int')
             #df_ends=numpy.array(genes[ln[1]][:,1],  dtype='int')
@@ -672,7 +647,6 @@ def core_parse_gene_data_vs_annotated_coordinates(lines, genes_length, mode, fla
     else:
         return ["Warning: core_parse_chrms_data_vs_annotated_coordinates unknown mode\n"]       
     return result
-
 #
 #
 def parse_gene_data_vs_annotated_coordinates (path, df_name, mode, number_of_cpu, flank):
@@ -797,9 +771,6 @@ def parse_gene_data_vs_annotated_coordinates (path, df_name, mode, number_of_cpu
                         continue                    
                     if (int(ln[12]) > int(ln[6])) and (int(ln[12]) < int(ln[13])):
                         out_file.write(line)    
-
-    
- 
 #
 #
 def parse_gene_data_vs_length (path, df, df_name, mode, portion):
@@ -1071,8 +1042,6 @@ def make_intragene_calculation (mode,  title, df_name, fl_in, fl_out_intra, fl_o
                 else:
                     table_file.write("\t" + "nan")
                     
-                
-                    
                                  
             table_file.write ("\n")
             if empty_line==0:
@@ -1287,8 +1256,6 @@ def make_intragene_calculation_relative_bin (mode,  title, df_name, fl_in, fl_ou
                 else:
                     print id
                     continue
-                
-   
         
         global bin_size
         bin_size=1+(genes_length[id][3])/6
@@ -1324,8 +1291,6 @@ def make_intragene_calculation_relative_bin (mode,  title, df_name, fl_in, fl_ou
             d = (-1) * d
             count_change_sign+=1
         '''
-
-
         
         if abs(d) > max_dist or abs(binRNA) > 5 or abs(binDNA) > 5 or binRNA*binDNA<0 :
             print bin_size
@@ -1480,16 +1445,9 @@ def make_intragene_calculation_relative_bin (mode,  title, df_name, fl_in, fl_ou
         ax[1,0].plot(x_ax, y_ax_sliding[bn], linewidth=1.5, label='sliding bin = ' + str(bn) )
         ax[1,0].set_yscale("log", nonposy='clip')
     #ax[2,2].plot(x_ax, y_ax_sum_fixed, linewidth=1, label='sum fixed bn' )
-    
-    
-    
-    
-    
-    
 
     plt.savefig(path + paths_pics + "intragene"+"_" + df_name + "_" + mode + "_DNA_ylog_xlog" + title.split("intragene")[-1] + "_rel_bin.png", dpi=300, figsize=(12, 12)) 
-   
-    
+       
     plt.close()    
     values_intra.close()
     values_intra_by_gene.close()
@@ -1593,8 +1551,7 @@ def make_combined_graph_genes(fl1_intra_in, fl2_intra_in, fl3_intra_in, fl4_intr
     #ax.set_xscale("symlog", nonposx='clip', linthreshy=1)
     ax.set_xscale("symlog")
     plt.savefig(path_pics + "intragene" + "_combined_ylog_xlog" + name.split("intragene")[-1] + str(bin_size)+ ".png", dpi=300, figsize=(6, 6)) 
-    plt.close()    
-    
+    plt.close()       
 
     
     x_ax_ratio = range(1, x_ax[-1])  
@@ -1804,7 +1761,7 @@ def make_combined_graph_genes_wo_last_exon( fl2_intra_in, fl4_intra_in, name):
             y_ax4_CI_high.append(None)            
             y_ax4_CI_low.append(None)
             for j in range(BS_i):            
-                y_ax4_BS[j].append(None)         
+                y_ax4_BS[j].append(None)        
         
         
         '''
@@ -2150,8 +2107,7 @@ def make_intrachromosomal_and_interchromosomal_calculation (mode, chr, title, df
     values_intra.close()
     values_raw_intra.close()
     values_inter.close()
-    value_raw_inter.close()
-    
+    value_raw_inter.close()    
 #
 #
 def make_combined_graph(fl1_intra_in, fl2_intra_in, fl3_intra_in, fl4_intra_in, fl1_inter_in, fl2_inter_in, fl3_inter_in, fl4_inter_in, name, chr):
@@ -2171,13 +2127,11 @@ def make_combined_graph(fl1_intra_in, fl2_intra_in, fl3_intra_in, fl4_intra_in, 
     fl2_inter=open(fl2_inter_in, 'r')
     fl3_inter=open(fl3_inter_in, 'r')
     fl4_inter=open(fl4_inter_in, 'r')  
-
     
     fl1_inter=list(enumerate(fl1_inter))
     fl2_inter=list(enumerate(fl2_inter))
     fl3_inter=list(enumerate(fl3_inter))
     fl4_inter=list(enumerate(fl4_inter))
-
     
     x_ax=[]
     y_ax1=[]
@@ -2224,8 +2178,6 @@ def make_combined_graph(fl1_intra_in, fl2_intra_in, fl3_intra_in, fl4_intra_in, 
     ax.set_xscale("symlog")
     plt.savefig(path_pics+"chrm_territory_" + chr + "_combined_ylog_xlog_" + str(bin_size)+ ".png", dpi=300, figsize=(6, 6)) 
     plt.close()    
-
-
 
 #
 #
